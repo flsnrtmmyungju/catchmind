@@ -1,0 +1,19 @@
+{
+  "name": "catchmind",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/flsnrtmmyungju/catchmind.git",
+  "author": "flnutmmyungju <mjmj01617@naver.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "express": "^4.17.0",
+    "nodemon": "^1.19.0",
+    "socket.io": "^2.2.0"
+  },
+  "scripts": {
+    "dev:server": "nodemon --exec babel-node src/server"
+  }
+}
