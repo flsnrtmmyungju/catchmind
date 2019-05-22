@@ -17,4 +17,15 @@ const socket = io("/");
 function sendMessage(message) {
   //message:message 키와벨류값이같으면 그냥 message 라고써도댐
   socket.emit("newMessage", { message });
+  console.log(`you: ${message}`);
 }
+
+function setNickname(nickname) {
+  socket.emit("setNickname", { nickname });
+}
+
+function handleMessageNotif(data) {
+  const { message, nickname } = data;
+  console.log(`${nickname}: ${message}`);
+}
+socket.on("messageNotif", handleMessageNotif);

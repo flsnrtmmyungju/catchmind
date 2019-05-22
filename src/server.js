@@ -37,7 +37,20 @@ io.on("connection", socket => {
   //연결되면 방금접속한 클라이언트 제외하고 다른모든 클라에게 2초후 메시지보내는 이벤트.->index.js
   //broadcast는 현재연결된 소켓을 제외한 모든소켓에 이벤트를 보냄.
   //setTimeout(() => socket.broadcast.emit("hello"), 1000);
-  socket.on("newMessage", ({ message }) => console.log(message));
+
+  //소켓이 샌드메세지라는 이벤트를 보내면 우리가보낸메세지와함께 메세지노티피케이션이라는 이벤트를 브로드케스팅함
+  //닉네임도추가 닉네임없으면 anon으로 아무나..
+  socket.on("newMessage", ({ message }) => {
+    socket.broadcast.emit("messageNotif", {
+      message,
+      nickname: socket.nickname || "Anon"
+    });
+  });
+
+  //소켓닉네임정하는거. 소켓은 객체라 아무거나될수있음
+  socket.on("setNickname", ({ nickname }) => {
+    socket.nickname = nickname;
+  });
 });
 
 // //소켓아이오 아이디확인.
