@@ -1,2 +1,1 @@
-body {
-  background-color: red; }
+@-webkit-keyframes a{0%{color:#000}to{color:#fff}}@keyframes a{0%{color:#000}to{color:#fff}}body{background-color:#6464a1;position:-webkit-sticky;position:sticky}

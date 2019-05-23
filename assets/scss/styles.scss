@@ -1,5 +1,16 @@
+@import "body";
+
 $color: red;
 
+@keyframes a {
+  from {
+    color: #000;
+  }
+  to {
+    color: white;
+  }
+}
+
 body {
-  background-color: $color;
+  position: sticky;
 }
