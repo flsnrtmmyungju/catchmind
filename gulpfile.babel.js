@@ -3,6 +3,9 @@ import sass from "gulp-sass";
 import autoprefixer from "gulp-autoprefixer";
 import minifyCSS from "gulp-csso";
 sass.compiler = require("node-sass");
+import del from "del";
+import bro from "gulp-browserify";
+import babel from "babelify";
 
 //src를통해 dset(결과)로이동해서 만들어짐.
 const paths = {
@@ -10,11 +13,17 @@ const paths = {
     src: "assets/scss/styles.scss",
     dest: "src/static/styles",
     watch: "assets/scss/**/*.scss"
+  },
+  js: {
+    src: "assets/js/main.js",
+    dest: "src/static/js",
+    watch: "assets/js/**/*.js"
   }
 };
+const clean = () => del("src/static");
 
-function styles() {
-  return gulp
+const styles = () =>
+  gulp
     .src(paths.styles.src)
     .pipe(sass())
     .pipe(
@@ -25,12 +34,28 @@ function styles() {
     )
     .pipe(minifyCSS())
     .pipe(gulp.dest(paths.styles.dest));
-}
 
-function watchFiles() {
+const js = () =>
+  gulp
+    .src(paths.js.src)
+    .pipe(
+      bro({
+        transform: [
+          babel.configure({
+            presets: ["@babel/preset-env"]
+          })
+        ]
+      })
+    )
+    .pipe(gulp.dest(paths.js.dest));
+
+const watchFiles = () => {
   gulp.watch(paths.styles.watch, styles);
-}
+  gulp.watch(paths.js.watch, js);
+};
 
-const dev = gulp.series([styles, watchFiles]);
+const dev = gulp.series(clean, styles, js, watchFiles);
+
+export const build = gulp.series(clean, styles, js);
 
 export default dev;

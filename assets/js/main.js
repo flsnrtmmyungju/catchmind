@@ -1,5 +1,6 @@
 //index.js는클라이언트
 
+import { handleMessageNotif } from "./chat";
 const socket = io("/");
 
 //서버에서 hello라고오면 콘솔에 찍음.
@@ -24,8 +25,4 @@ function setNickname(nickname) {
   socket.emit("setNickname", { nickname });
 }
 
-function handleMessageNotif(data) {
-  const { message, nickname } = data;
-  console.log(`${nickname}: ${message}`);
-}
 socket.on("messageNotif", handleMessageNotif);
