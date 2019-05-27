@@ -2,10 +2,11 @@ import gulp from "gulp";
 import sass from "gulp-sass";
 import autoprefixer from "gulp-autoprefixer";
 import minifyCSS from "gulp-csso";
-sass.compiler = require("node-sass");
 import del from "del";
 import bro from "gulp-browserify";
 import babel from "babelify";
+
+sass.compiler = require("node-sass");
 
 //src를통해 dset(결과)로이동해서 만들어짐.
 const paths = {
@@ -20,7 +21,7 @@ const paths = {
     watch: "assets/js/**/*.js"
   }
 };
-const clean = () => del("src/static");
+const clean = () => del(["src/static"]);
 
 const styles = () =>
   gulp
